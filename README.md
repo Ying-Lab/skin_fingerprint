@@ -16,7 +16,8 @@ You can type *`bowtie2-build --large-index -f <kmer file> <path of bowtie index>
 
 You can type *`magahit --12 reads.fasta -o output `* to obatin individual-specific contigs.
 
-###The demo of fingerprint on testing dataset.
+### The demo of fingerprint on testing dataset.
+
 The dataset was randomly generated. There were 20 contigs only exists in HV01.[Testing dataset Download](https://github.com/zhengyl2019/skin_fingerprint/tree/main/Demo_data)
 
 You can type *`python3 KmerGO_for_cmd.py -k 25 -ci 1 -cs 1000000000 -n 16 -i ./Demo_data -t trait information.csv`* to get kmer matrix of all data.
