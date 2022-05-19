@@ -9,21 +9,21 @@ An demo of fingerprint running is given here.
 
 	*`sudo chmod +x ./bin/*`* 
 
-2. Get kmer matrix of all data
+2. Get kmer matrix of all data:
 
 	*`python3 KmerGO_for_cmd.py [optional options] -i <input_files_folder> -t <input_trait_information>`* 
 
-3. Split dataset and get individual-specific kmer in details. 
+3. Split dataset and get individual-specific kmer in details:
 
 	*`python3 split_matrix_train_and_test.py`*
 
-4. Processing file formats for subsequent runs.
+4. Processing file formats for subsequent runs:
 
 	*`python3 get_kmer.py`*
 
-5. Obtain individual-specific contigs.
+5. Obtain individual-specific contigs by cap3:
 
-	*`./bin/cap3 <input_files>  -i 30  -j 31  -o 18  -s 300 `* 
+	*`./bin/cap3 <input_files>  [optional options] `* 
 
 
 ### The demo of fingerprint on testing dataset.
