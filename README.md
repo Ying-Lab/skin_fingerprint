@@ -6,6 +6,7 @@ An demo of fingerprint running is given here.
 
 ### Running on Linux
 1. If you first use, please type the command:
+
 *`sudo chmod +x ./bin/*`* 
 
 2. Get kmer matrix of all data
