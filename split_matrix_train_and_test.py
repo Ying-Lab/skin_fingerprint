@@ -319,7 +319,7 @@ if __name__ == '__main__':
             j.join()
 
         os.system('cat ' + test_outputpath + '/specific_kmer_matrix_*.txt > ' + test_outputpath + '/all_specific_kmer_matrix.txt')
-        os.system('awk -v OFS=\'\\t\' \'{print $1,$(NF-1),$NF,($(NF-1)+$NF)/2}\' '+ test_outputpath + '/all_specific_kmer_matrix.txt  >' + test_outputpath + '/kmer.txt')
+        os.system('awk -v OFS=\'\\t\' \'{print $1,$(NF-1),$NF,($(NF-1)+$NF)/2}\' '+ test_outputpath + '/all_specific_kmer_matrix.txt  >' + test_outputpath + '/kmer_details.txt')
 
 
     for time in range(3):
