@@ -3,6 +3,7 @@ from multiprocessing import Process
 import os
 import random
 import copy
+import sys
 
 random.seed(0)
 
@@ -236,8 +237,36 @@ if __name__ == '__main__':
 
     # input是完整的大矩阵，617列 kmer+616个无.fasta的文件名
     inputpath = './kmer_matrix'
-    os.system('mkdir -p ./train')
-    os.system('mkdir -p ./test')
+    train_fpath = './train'
+    test_fpath = './test'
+    final_output_name = 'kmer_details.txt'
+
+    # 命令行解析
+    try:
+        for i in range(len(argsa)):
+            if argsa[i] == '-i' or argsa[i] == '--input':
+                inputpath = argsa[i+1]
+            elif argsa[i] == '-o1' or argsa[i] == '--train_output':
+                train_fpath = argsa[i+1]
+            elif argsa[i] == '-o2' or argsa[i] == '--test_output':
+                test_fpath = argsa[i+1]
+            elif argsa[i] == '-fon' or argsa[i] == '--final_output_name':
+                output_file_name = argsa[i + 1]
+            elif argsa[i] == '-h' or argsa[i] == '--help':
+                print('Usage python split_matrix_train_and_test.py [options]')
+                print('-i / --input : input kmer matrix folder')
+                print('-o1 / --train_output : train data output folder')
+                print('-o2 / --test_output : test data output folder')
+                print ('-fon  / --final_output_name : final output file name')
+                sys.exit(0)
+            elif argsa[i][0] == '-':
+                raise 'Error'
+    except:
+        print('CMD parser error!')
+        sys.exit(-1)
+
+    os.system('mkdir -p ' + train_fpath)
+    os.system('mkdir -p ' + test_fpath)
 
     # 需要过滤的小样本
     small_file = ['HV02_1']
@@ -247,11 +276,11 @@ if __name__ == '__main__':
     train_reserve_column_matrix, test_reserve_column_matrix = [], []
     for time in range(0, 3):
         print (str(time + 1))
-        os.system('mkdir -p ./train/'+ str(time + 1))
-        os.system('mkdir -p ./test/' + str(time + 1))
         # 路径下的out_matrix_ 第一列是 kmer 最后一列是ass
-        train_outputpath = './train/' + str(time + 1)
-        test_outputpath = './test/' + str(time + 1)
+        train_outputpath = os.path.join(train_fpath, str(time + 1))
+        test_outputpath = os.path.join(test_fpath, str(time + 1))
+        os.system('mkdir -p '+ train_outputpath)
+        os.system('mkdir -p ' + test_outputpath)
         reserve_column_list_train, reserve_column_list_test = StrList2List(train_file_matrix[time],
                                                                            test_file_matrix[time])
         # train_reserve_column_matrix.append(reserve_column_list_train)
@@ -320,7 +349,7 @@ if __name__ == '__main__':
 
         os.system('cat ' + test_outputpath + '/specific_kmer_matrix_*.txt > ' + test_outputpath + '/all_specific_kmer_matrix.txt')
         os.system('awk -v OFS=\'\\t\' \'{print $1,$(NF-1),$NF,($(NF-1)+$NF)/2}\' '+ test_outputpath + '/all_specific_kmer_matrix.txt  >' + test_outputpath + '/kmer_details.txt')
-
+        os.system('mv '+ test_outputpath + '/kmer_details.txt '+ test_outputpath + '/' + output_file_name)
 
     for time in range(3):
         train_outputpath = './train/' + str(time + 1)
@@ -349,5 +378,4 @@ if __name__ == '__main__':
                 f3.write(s + '\t' + str(train_ass_list[kmer_list.index(kmer)]) + '\n')
             s = f2.readline()[:-1]
         f2.close()
-
 

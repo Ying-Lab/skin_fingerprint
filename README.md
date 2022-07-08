@@ -36,7 +36,7 @@ The dataset was randomly generated. There were 20 contigs only exists in HV01.[T
 
 2. Split dataset to train and test and save individual specific kmer with details in **train_specific_kmer_09.txt** for training data and **kmer_details.txt** for testing data.
 
-	*`python3 split_matrix_train_and_test.py`*
+	*`python3 split_matrix_train_and_test.py -i input_kmer_matrix_folder -fon final_output_file_name`*
 
 3. Processing file formats for subsequent runs. The output file is **output_kmer.fa**.
 
